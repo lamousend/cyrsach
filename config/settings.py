@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/6.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.1/ref/settings/
 """
+from datetime import time, timedelta
 
 from pathlib import Path
 
@@ -37,9 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.postgres',
     'rest_framework',
     'users',
     'rooms',
+    'bookings',
 ]
 
 AUTH_USER_MODEL = "users.User"
@@ -133,4 +136,23 @@ MAILERS = {
     'default': {
         'BACKEND': 'django.core.mail.backends.console.EmailBackend',
     },
+}
+
+BOOKING_DAY_START = time(8, 0)               
+BOOKING_DAY_END = time(21, 0)                
+BOOKING_MIN_DURATION = timedelta(minutes=15)
+BOOKING_MAX_DURATION = timedelta(hours=4)
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+        "rest_framework.authentication.SessionAuthentication",
+    ],
+    "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.IsAuthenticated"],
+    "EXCEPTION_HANDLER": "config.exceptions.api_exception_handler",
+}
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(hours=1),    
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
 }
