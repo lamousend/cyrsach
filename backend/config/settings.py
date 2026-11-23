@@ -138,7 +138,7 @@ MAILERS = {
     },
 }
 
-BOOKING_DAY_START = time(8, 0)               
+BOOKING_DAY_START = time(9, 0)               
 BOOKING_DAY_END = time(21, 0)                
 BOOKING_MIN_DURATION = timedelta(minutes=15)
 BOOKING_MAX_DURATION = timedelta(hours=4)
